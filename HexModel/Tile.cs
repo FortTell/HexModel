@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace HexModel
 {
-    class Program
+    public class Tile
     {
-        static void Main(string[] args)
-        {
-            var t = new TileTerrain("road");
-        }
+        TileObject tileObject;
+        TileTerrain tileTerrain;
     }
 }
