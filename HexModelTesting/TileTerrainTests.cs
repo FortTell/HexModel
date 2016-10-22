@@ -15,7 +15,7 @@ namespace HexModelTesting
         public void AddGoodTerrain()
         {
             TileTerrain t = new TileTerrain("road");
-            Assert.AreEqual(t.SpeedMult, 0.75, 0.0001);
+            Assert.AreEqual(t.TravelCost, 0.75, 0.0001);
             Assert.AreEqual(t.TerrainType, "road");
         }
 
@@ -23,6 +23,22 @@ namespace HexModelTesting
         public void AddUnknownTerrainType()
         {
             Assert.Throws<ArgumentException>(() => new TileTerrain("sea"));
+        }
+
+        [Test]
+        public void EditTerrainTypeToBad()
+        {
+            var t = new TileTerrain("rocky");
+            Assert.Throws<ArgumentException>(() => t.TerrainType = "123");
+        }
+
+        [Test]
+        public void EditCorrectlyFixesTravelCost()
+        {
+            var t = new TileTerrain("grass");
+            Assert.AreEqual(t.TravelCost, 1, 0.0001);
+            t.TerrainType = "rocky";
+            Assert.AreEqual(t.TravelCost, 1.25, 0.0001);
         }
     }
 }

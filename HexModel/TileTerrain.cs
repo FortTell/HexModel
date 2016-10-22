@@ -8,7 +8,7 @@ namespace HexModel
 {
     public class TileTerrain
     {
-        static readonly Dictionary<string, double> speedOnTerrainType = new Dictionary<string, double>
+        static readonly Dictionary<string, double> travelCostOnTerrainType = new Dictionary<string, double>
         {
             {"road", 0.75 },
             {"grass", 1 },
@@ -24,15 +24,15 @@ namespace HexModel
             get { return terrainType; }
             set
             {
-                if (!(speedOnTerrainType.ContainsKey(value)))
+                if (!(travelCostOnTerrainType.ContainsKey(value)))
                     throw new ArgumentException();
                 else
                     terrainType = value;
             }
         }
-        public double SpeedMult
+        public double TravelCost
         {
-            get { return speedOnTerrainType[TerrainType]; }
+            get { return travelCostOnTerrainType[TerrainType]; }
         }
 
         public TileTerrain(string terrainType)
