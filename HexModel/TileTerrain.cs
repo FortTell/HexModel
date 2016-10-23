@@ -5,14 +5,14 @@ namespace HexModel
 {
     public class TileTerrain
     {
-        static readonly Dictionary<string, double> travelCostOnTerrainType = new Dictionary<string, double>
+        public static readonly Dictionary<string, double> travelCostOnTerrainType = new Dictionary<string, double>
         {
             {"road", 0.75 },
             {"grass", 1 },
-            {"rocky", 1.25 },
+            {"arid", 1.25 },
             {"snow", 1.5 },
-            {"sand", 1.5 },
-            {"swamp", 1.75 }
+            {"desert", 1.5 },
+            {"marsh", 1.75 }
         };
 
         private string terrainType;

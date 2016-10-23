@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HexModel
 {
-    public class Mine
+    public class Mine : TileObject
     {
         public readonly Resource resource;
         private Player owner;
@@ -32,6 +32,12 @@ namespace HexModel
                     default: return 1;
                 }
             }
+        }
+
+        public Mine(Resource res)
+        {
+            resource = res;
+            owner = null;
         }
     }
 }

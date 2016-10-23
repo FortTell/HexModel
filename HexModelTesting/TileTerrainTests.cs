@@ -14,13 +14,13 @@ namespace HexModelTesting
         [Test]
         public void AddGoodTerrain()
         {
-            TileTerrain t = new TileTerrain("road");
-            Assert.AreEqual(t.TravelCost, 0.75, 0.0001);
-            Assert.AreEqual(t.TerrainType, "road");
+            TileTerrain t = new TileTerrain("marsh");
+            Assert.AreEqual(t.TravelCost, 1.75, 0.0001);
+            Assert.AreEqual(t.TerrainType, "marsh");
         }
 
         [Test]
-        public void AddingUnknownTerrainTypeFails()
+        public void CreatingTerrainOfBadTypeFails()
         {
             Assert.Throws<ArgumentException>(() => new TileTerrain("crocodile land"));
         }
@@ -28,7 +28,7 @@ namespace HexModelTesting
         [Test]
         public void EditingTerrainTypeToBadFails()
         {
-            var t = new TileTerrain("rocky");
+            var t = new TileTerrain("arid");
             Assert.Throws<ArgumentException>(() => t.TerrainType = "123");
         }
 
@@ -37,7 +37,7 @@ namespace HexModelTesting
         {
             var t = new TileTerrain("grass");
             Assert.AreEqual(t.TravelCost, 1, 0.0001);
-            t.TerrainType = "rocky";
+            t.TerrainType = "arid";
             Assert.AreEqual(t.TravelCost, 1.25, 0.0001);
         }
     }

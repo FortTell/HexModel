@@ -10,6 +10,8 @@ namespace HexModel
     {
         static void Main(string[] args)
         {
+            //var round = new Round("map1.txt", new string[] { "Ivan", "Boris" });
+            //Console.ReadKey();
         }
     }
 }

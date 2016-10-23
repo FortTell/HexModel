@@ -8,7 +8,13 @@ namespace HexModel
 {
     public class Tile
     {
-        TileObject tileObject;
-        TileTerrain tileTerrain;
+        public TileObject tileObject;
+        public TileTerrain tileTerrain;
+
+        public Tile(TileTerrain t, TileObject obj)
+        {
+            tileTerrain = t;
+            tileObject = obj;
+        }
     }
 }
