@@ -6,14 +6,7 @@ using System.Threading.Tasks;
 
 namespace HexModel
 {
-    public enum Resource
+    public class Map
     {
-        Gold,
-        Wood,
-        Ore,
-        Crystals,
-        Sulfur,
-        Gems,
-        Mercury
     }
 }

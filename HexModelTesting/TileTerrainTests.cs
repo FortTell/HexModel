@@ -20,13 +20,13 @@ namespace HexModelTesting
         }
 
         [Test]
-        public void AddUnknownTerrainType()
+        public void AddingUnknownTerrainTypeFails()
         {
-            Assert.Throws<ArgumentException>(() => new TileTerrain("sea"));
+            Assert.Throws<ArgumentException>(() => new TileTerrain("crocodile land"));
         }
 
         [Test]
-        public void EditTerrainTypeToBad()
+        public void EditingTerrainTypeToBadFails()
         {
             var t = new TileTerrain("rocky");
             Assert.Throws<ArgumentException>(() => t.TerrainType = "123");

@@ -10,7 +10,6 @@ namespace HexModel
     {
         static void Main(string[] args)
         {
-            var t = new TileTerrain("road");
         }
     }
 }

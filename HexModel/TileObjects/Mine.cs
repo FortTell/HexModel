@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HexModel.TileObjects
+namespace HexModel
 {
     public class Mine
     {
@@ -15,7 +15,7 @@ namespace HexModel.TileObjects
             get { return owner; }
             set
             {
-                if (value == null)
+                if (value == null && owner != null)
                     throw new ArgumentException("Cannot un-own a mine!");
                 owner = value;
             }

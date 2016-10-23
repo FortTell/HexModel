@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace HexModel
 {
-    public class Player
+    public abstract class Unit
     {
-        Dictionary<Resource, int> resources;
-        Dictionary<Resource, int> ownedMineCount;
+        public string unitName;
+        public int combatStrength;
+        public UnitType unitType;
     }
 }

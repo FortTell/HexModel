@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace HexModel
 {
-    public class Player
+    public class Round
     {
-        Dictionary<Resource, int> resources;
-        Dictionary<Resource, int> ownedMineCount;
+        Map map;
+        List<Player> players;
+
+        public void WeeklyTick()
+        {
+
+        }
     }
 }
