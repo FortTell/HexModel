@@ -14,6 +14,35 @@ namespace HexModel
         public int Height { get { return map.GetLength(0); } }
         public int Width { get { return map.GetLength(1); } }
         public Tile this[int x, int y] { get { return map[x, y]; } }
+        public List<Tile> GetNeighbourTiles(int x, int y)
+        {
+            if (x < 0 || x >= Width || y < 0 || y >= Height)
+                throw new ArgumentOutOfRangeException("out of map bounds!");
+            var neighbours = new List<Tile>();
+            bool isEvenColumn = y % 2 == 0;
+            int yUpper = isEvenColumn ? y - 1 : y;
+            int yLower = isEvenColumn ? y : y + 1;
+
+            if (y > 0)
+                neighbours.Add(map[x, y - 1]);
+            if (yUpper >= 0)
+            {
+                if (x > 0)
+                    neighbours.Add(map[x - 1, yUpper]);
+                if (x < Width - 1)
+                    neighbours.Add(map[x + 1, yUpper]);
+            }
+            if (y < Height - 1)
+                neighbours.Add(map[x, y + 1]);
+            if (yLower < Height)
+            {
+                if (x > 0)
+                    neighbours.Add(map[x - 1, yLower]);
+                if (x < Width - 1)
+                    neighbours.Add(map[x + 1, yLower]);
+            }
+            return neighbours;
+        }
 
         public Map(string filename)
         {
