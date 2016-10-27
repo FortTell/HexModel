@@ -102,8 +102,10 @@ namespace HexModel
                         var unitType = (UnitType)Enum.Parse(typeof(UnitType), monsterTypeName);
                         break;
                     }*/
-                default:
+                case '-':
                     return null;
+                default:
+                    throw new ArgumentException("Unknown object!");
             }
         }
 

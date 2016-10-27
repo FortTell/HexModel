@@ -63,7 +63,7 @@ namespace HexModel
                     if (map[x, y].tileObject is Mine)
                     {
                         var m = map[x, y].tileObject as Mine;
-                        m.Owner.GainResources(m.resource, m.Yield);
+                        m.Owner.GainResources(m.Resource, m.Yield);
                     }
 
 

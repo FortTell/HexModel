@@ -8,7 +8,7 @@ namespace HexModel
 {
     public class Mine : TileObject
     {
-        public readonly Resource resource;
+        public Resource Resource { get; private set; }
         private Player owner;
         public Player Owner
         {
@@ -24,7 +24,7 @@ namespace HexModel
         {
             get
             {
-                switch (resource)
+                switch (Resource)
                 {
                     case Resource.Gold: return 1000;
                     case Resource.Wood:
@@ -36,7 +36,7 @@ namespace HexModel
 
         public Mine(Resource res)
         {
-            resource = res;
+            Resource = res;
             owner = null;
         }
     }
