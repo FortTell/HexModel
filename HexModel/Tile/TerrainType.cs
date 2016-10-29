@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace HexModel
 {
-    public class Unit
+    public enum TerrainType
     {
-        public string unitName;
-        public int combatStrength;
-        public UnitType unitType;
+        Road,
+        Grass,
+        Arid,
+        Snow,
+        Desert,
+        Marsh,
+
     }
 }

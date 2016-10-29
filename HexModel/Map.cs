@@ -24,22 +24,22 @@ namespace HexModel
             int yLower = isEvenColumn ? y : y + 1;
 
             if (y > 0)
-                neighbours.Add(map[x, y - 1]);
+                neighbours.Add(map[y - 1, x]);
             if (yUpper >= 0)
             {
                 if (x > 0)
-                    neighbours.Add(map[x - 1, yUpper]);
+                    neighbours.Add(map[yUpper, x]);
                 if (x < Width - 1)
-                    neighbours.Add(map[x + 1, yUpper]);
+                    neighbours.Add(map[yUpper, x + 1]);
             }
             if (y < Height - 1)
-                neighbours.Add(map[x, y + 1]);
+                neighbours.Add(map[y + 1, x]);
             if (yLower < Height)
             {
                 if (x > 0)
-                    neighbours.Add(map[x - 1, yLower]);
+                    neighbours.Add(map[yLower, x - 1]);
                 if (x < Width - 1)
-                    neighbours.Add(map[x + 1, yLower]);
+                    neighbours.Add(map[yLower, x + 1]);
             }
             return neighbours;
         }
@@ -59,7 +59,7 @@ namespace HexModel
             }
         }
 
-        public Tile MakeTile(string s)
+        private Tile MakeTile(string s)
         {
             TileTerrain t = InitTerrain(s);
             TileObject obj = InitObject(s);
@@ -68,8 +68,8 @@ namespace HexModel
 
         private TileTerrain InitTerrain(string s)
         {
-            foreach (var terrainType in TileTerrain.travelCostOnTerrainType.Keys) //maybe take out terrain types to another enum?
-                if (terrainType.StartsWith(s.Substring(0, 1)))
+            foreach (TerrainType terrainType in Enum.GetValues(typeof(TerrainType)))
+                if (terrainType.ToString()[0] == char.ToUpper(s[0]))
                     return new TileTerrain(terrainType);
             throw new ArgumentException("Unknown terrain type!");
         }

@@ -37,5 +37,15 @@ namespace HexModelTesting
                 "Unknown object!",
                 new object[] { });
         }
+
+        [Test]
+        public void TestGoodMap()
+        {
+            var m = new Map("TestMaps\\goodMap.txt");
+            Assert.AreEqual(m.Height, 6);
+            Assert.AreEqual(m.Width, 5);
+            var tiles = m.GetNeighbourTiles(4, 5);
+            Assert.AreEqual(tiles.Count, 2);
+        }
     }
 }

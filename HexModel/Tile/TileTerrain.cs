@@ -5,18 +5,18 @@ namespace HexModel
 {
     public class TileTerrain
     {
-        public static readonly Dictionary<string, double> travelCostOnTerrainType = new Dictionary<string, double>
+        public static readonly Dictionary<TerrainType, double> travelCostOnTerrainType = new Dictionary<TerrainType, double>
         {
-            {"road", 0.75 },
-            {"grass", 1 },
-            {"arid", 1.25 },
-            {"snow", 1.5 },
-            {"desert", 1.5 },
-            {"marsh", 1.75 }
+            {TerrainType.Road, 0.75 },
+            {TerrainType.Grass, 1 },
+            {TerrainType.Arid, 1.25 },
+            {TerrainType.Snow, 1.5 },
+            {TerrainType.Desert, 1.5 },
+            {TerrainType.Marsh, 1.75 }
         };
 
-        private string terrainType;
-        public string TerrainType
+        private TerrainType terrainType;
+        public TerrainType TerrainType
         {
             get { return terrainType; }
             set
@@ -32,7 +32,7 @@ namespace HexModel
             get { return travelCostOnTerrainType[TerrainType]; }
         }
 
-        public TileTerrain(string terrainType)
+        public TileTerrain(TerrainType terrainType)
         {
             TerrainType = terrainType;
         }

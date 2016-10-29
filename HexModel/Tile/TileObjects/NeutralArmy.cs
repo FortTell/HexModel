@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace HexModel
 {
-    public class Monster : TileObject
+    public class NeutralArmy : TileObject
     {
         public readonly Unit unit;
         public int quantity { get; private set; }
 
-        public Monster(Unit unit, int quantity)
+        public NeutralArmy(Unit unit, int quantity)
         {
             this.unit = unit;
             this.quantity = quantity;

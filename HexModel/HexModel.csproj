@@ -50,12 +50,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="Round.cs" />
-    <Compile Include="Tile.cs" />
-    <Compile Include="TileObjects\Mine.cs" />
-    <Compile Include="TileObjects\Monster.cs" />
-    <Compile Include="TileObjects\ResourcePile.cs" />
-    <Compile Include="TileObjects\TileObject.cs" />
-    <Compile Include="TileTerrain.cs" />
+    <Compile Include="Tile\TerrainType.cs" />
+    <Compile Include="Tile\Tile.cs" />
+    <Compile Include="Tile\TileObjects\Mine.cs" />
+    <Compile Include="Tile\TileObjects\NeutralArmy.cs" />
+    <Compile Include="Tile\TileObjects\ResourcePile.cs" />
+    <Compile Include="Tile\TileObjects\TileObject.cs" />
+    <Compile Include="Tile\TileTerrain.cs" />
     <Compile Include="Units\Unit.cs" />
     <Compile Include="Units\UnitType.cs" />
   </ItemGroup>

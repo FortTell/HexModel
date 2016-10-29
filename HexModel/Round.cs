@@ -27,7 +27,7 @@ namespace HexModel
             for (int i = 0; i < players.Count; i++)
             {
                 var currentTile = map[playerPositions[i].X, playerPositions[i].Y];
-                if (currentTile == null)
+                if (currentTile.tileObject == null)
                     continue;
                 else
                     InteractWithObject(players[i], currentTile.tileObject);
