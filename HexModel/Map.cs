@@ -44,6 +44,11 @@ namespace HexModel
             return neighbours;
         }
 
+        public Map(int width, int height)
+        {
+            map = new Tile[height, width];
+        }
+
         public Map(string filename)
         {
             var input = File.ReadAllLines(filename);
@@ -59,7 +64,7 @@ namespace HexModel
             }
         }
 
-        private Tile MakeTile(string s)
+        public Tile MakeTile(string s)
         {
             TileTerrain t = InitTerrain(s);
             TileObject obj = InitObject(s);

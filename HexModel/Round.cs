@@ -30,7 +30,8 @@ namespace HexModel
                 if (currentTile.tileObject == null)
                     continue;
                 else
-                    InteractWithObject(players[i], currentTile.tileObject);
+                    currentTile.tileObject.InteractWithPlayer(players[i]);
+                    //InteractWithObject(players[i], currentTile.tileObject);
             }
         }
 

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HexModel
 {
@@ -17,6 +13,12 @@ namespace HexModel
                 throw new ArgumentException("Cannot create zero or less resources!");
             this.quantity = quantity;
             this.resource = resource;
+        }
+
+        public override void InteractWithPlayer(Player p)
+        {
+            p.GainResources(resource, quantity);
+            //and must remove the pile
         }
     }
 }

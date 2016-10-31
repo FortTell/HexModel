@@ -8,8 +8,15 @@ namespace HexModel
 {
     public class Unit
     {
-        public string unitName;
-        public int combatStrength;
-        public UnitType unitType;
+        public readonly string unitName;
+        public readonly int combatStrength;
+        public readonly UnitType unitType;
+
+        public Unit(string unitName, int combatStrength, UnitType unitType)
+        {
+            this.unitName = unitName;
+            this.combatStrength = combatStrength;
+            this.unitType = unitType;
+        }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace HexModel
 {
@@ -10,6 +7,8 @@ namespace HexModel
     {
         public Resource Resource { get; private set; }
         private Player owner;
+
+
         public Player Owner
         {
             get { return owner; }
@@ -38,6 +37,11 @@ namespace HexModel
         {
             Resource = res;
             owner = null;
+        }
+
+        public override void InteractWithPlayer(Player p)
+        {
+            Owner = p;
         }
     }
 }

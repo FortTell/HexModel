@@ -58,6 +58,7 @@
     <Compile Include="Tile\TileObjects\TileObject.cs" />
     <Compile Include="Tile\TileTerrain.cs" />
     <Compile Include="Units\Unit.cs" />
+    <Compile Include="Units\UnitFactory.cs" />
     <Compile Include="Units\UnitType.cs" />
   </ItemGroup>
   <ItemGroup>
