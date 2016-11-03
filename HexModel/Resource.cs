@@ -2,7 +2,7 @@
 {
     public enum Resource
     {
-        Gold,
+        Rubles,
         Wood,
         Ore,
         Crystals,

@@ -75,7 +75,13 @@ namespace HexModel
         }
         public void WeeklyTick()
         {
-
+            for (int x = 0; x < map.Height; x++)
+                for (int y = 0; y < map.Width; y++)
+                    if (map[x, y].tileObject is Dwelling)
+                    {
+                        var d = map[x, y].tileObject as Dwelling;
+                        d.AddWeeklyGrowth();
+                    }
         }
     }
 }

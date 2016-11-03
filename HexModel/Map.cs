@@ -20,15 +20,15 @@ namespace HexModel
                 throw new ArgumentOutOfRangeException("out of map bounds!");
             var neighbours = new List<Tile>();
             bool isEvenColumn = y % 2 == 0;
-            int yUpper = isEvenColumn ? y - 1 : y;
-            int yLower = isEvenColumn ? y : y + 1;
+            int yUpper = isEvenColumn ? y : y - 1;
+            int yLower = isEvenColumn ? y + 1 : y;
 
             if (y > 0)
                 neighbours.Add(map[y - 1, x]);
             if (yUpper >= 0)
             {
                 if (x > 0)
-                    neighbours.Add(map[yUpper, x]);
+                    neighbours.Add(map[yUpper, x - 1]);
                 if (x < Width - 1)
                     neighbours.Add(map[yUpper, x + 1]);
             }
@@ -60,15 +60,15 @@ namespace HexModel
             {
                 var line = input[y].Split();
                 for (int x = 0; x < width; x++)
-                    map[y, x] = MakeTile(line[x]);
+                    map[y, x] = MakeTile(x, y, line[x]);
             }
         }
 
-        public Tile MakeTile(string s)
+        public Tile MakeTile(int x, int y, string s)
         {
             TileTerrain t = InitTerrain(s);
             TileObject obj = InitObject(s);
-            return new Tile(t, obj);
+            return new Tile(x, y, t, obj);
         }
 
         private TileTerrain InitTerrain(string s)
@@ -87,26 +87,26 @@ namespace HexModel
                     {
                         var resName = Enum.GetNames(typeof(Resource))
                             .SingleOrDefault(res => res[0] == s[2]);
-                        var resource = (Resource)Enum.Parse(typeof(Resource), resName == null ? "Gold" : resName);
+                        var resource = (Resource)Enum.Parse(typeof(Resource), resName == null ? "Rubles" : resName);
                         return new Mine(resource);
                     }
                 case 'p':
                     {
                         var resName = Enum.GetNames(typeof(Resource))
                             .SingleOrDefault(res => res[0] == s[2]);
-                        var resource = (Resource)Enum.Parse(typeof(Resource), resName == null ? "Gold" : resName);
+                        var resource = (Resource)Enum.Parse(typeof(Resource), resName == null ? "Rubles" : resName);
                         int amount = int.Parse(s.Substring(3));
                         return new ResourcePile(resource, amount);
                     }
-                //CANNOT INTO UNITS YET
-                /*case 'M':
+                case 'M':
                     {
                         
                         var monsterTypeName = Enum.GetNames(typeof(UnitType))
                             .SingleOrDefault(res => res[0] == s[2]);
                         var unitType = (UnitType)Enum.Parse(typeof(UnitType), monsterTypeName);
-                        break;
-                    }*/
+                        int amount = int.Parse(s.Substring(3));
+                        return new NeutralArmy(UnitFactory.CreateFromUnitType(unitType), amount);
+                    }
                 case '-':
                     return null;
                 default:

@@ -4,33 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HexModel.Units
+namespace HexModel
 {
     public static class UnitFactory
     {
-        public static Unit Pikeman()
+        public static Unit CreateFromUnitType(UnitType unitType)
         {
-            return new Unit("Pikeman", 10, UnitType.Infantry);
+            switch (unitType.ToString())
+            {
+                case "Infantry": return CreateInfantry();
+                case "Ranged": return CreateRanged();
+                case "Cavalry": return CreateCavalry();
+                default: throw new ArgumentException("Unsupported unit type!");
+            }
+        }
+        public static Unit CreateInfantry()
+        {
+            return new Unit("Infantryman", 15, UnitType.Infantry);
         }
 
-        public static Unit Swordsman()
+        public static Unit CreateCavalry()
         {
-            return new Unit("Swordsman", 15, UnitType.Infantry);
+            return new Unit("Horseman", 35, UnitType.Cavalry);
         }
 
-        public static Unit Horseman()
-        {
-            return new Unit("Horseman", 25, UnitType.Cavalry);
-        }
-
-        public static Unit Archer()
+        public static Unit CreateRanged()
         {
             return new Unit("Archer", 12, UnitType.Ranged);
-        }
-
-        public static Unit Crossbowman()
-        {
-            return new Unit("Crossbowman", 17, UnitType.Ranged);
         }
     }
 }

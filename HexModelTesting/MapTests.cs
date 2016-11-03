@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using HexModel;
 using NUnit.Framework;
 
@@ -45,7 +46,16 @@ namespace HexModelTesting
             Assert.AreEqual(m.Height, 6);
             Assert.AreEqual(m.Width, 5);
             var tiles = m.GetNeighbourTiles(4, 5);
-            Assert.AreEqual(tiles.Count, 2);
+            Assert.AreEqual(tiles.Count, 3);
+            var expected = new List<Point> { new Point(3, 4), new Point(3, 5), new Point(4, 4) };
+            CollectionAssert.AreEquivalent(tiles.Select(t => t.location), expected);
+        }
+
+        [Test]
+        public void TestMapWithUnits()
+        {
+            var m = new Map("TestMaps\\mapWithUnits.txt");
+            //Assert.True(m[])
         }
     }
 }
