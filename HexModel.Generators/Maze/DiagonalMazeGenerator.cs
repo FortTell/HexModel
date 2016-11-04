@@ -24,7 +24,7 @@ namespace HexModel.Generators
             // need a local variable here to put it into a closure
             ImmutableSigmaMap<MazeCell> maze = ArraySigmaMap<MazeCell>.Solid(size, _ => MazeCell.Wall);
 
-            return Graph.DFS(new SigmaIndex(0, 0),
+            return Graph.DepthFirstTraverse(new SigmaIndex(0, 0),
 
                 s => s.Neighborhood
                     .Clamp(size)
@@ -51,7 +51,7 @@ namespace HexModel.Generators
 
         private bool IsConnected(ISigmaMap<MazeCell> maze)
         {
-            return Graph.DFS(new SigmaIndex(0, 0), s => s.Neighborhood
+            return Graph.DepthFirstTraverse(new SigmaIndex(0, 0), s => s.Neighborhood
                 .Where(n => n.IsInside(maze.Size))
                 .Where(n => maze[n] == MazeCell.Empty)
             ).Contains(new SigmaIndex(maze.Size.Y - 1, maze.Size.X - 1));

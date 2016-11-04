@@ -6,37 +6,77 @@ namespace HexModel.Generators
 {
     public static class Graph
     {
-        public static IEnumerable<T> DFS<T>(
+        public static IEnumerable<T> DepthFirstTraverse<T>(
             T start,
             Func<T, IEnumerable<T>> neighborhood,
             Func<T, bool> skip = null)
         {
             var stack = new Stack<T>();
 
-            return Serch(t => stack.Push(t), () => stack.Pop(), () => stack.Count == 0,
-                start, neighborhood, skip);
+            return Traverse(t => stack.Push(t), () => stack.Pop(), () => stack.Count == 0,
+                new Dictionary<T, T>(), start, neighborhood, t => false, skip);
         }
 
-        public static IEnumerable<T> BFS<T>(
+        public static IEnumerable<T> BreadthFirstTraverse<T>(
             T start,
             Func<T, IEnumerable<T>> neighborhood,
             Func<T, bool> skip = null)
         {
             var queue = new Queue<T>();
 
-            return Serch(t => queue.Enqueue(t), () => queue.Dequeue(), () => queue.Count == 0,
-                start, neighborhood, skip);
+            return Traverse(t => queue.Enqueue(t), () => queue.Dequeue(), () => queue.Count == 0, 
+                new Dictionary<T, T>(), start, neighborhood, t => false, skip);
         }
 
-        private static IEnumerable<T> Serch<T>(Action<T> push, Func<T> pop, Func<bool> empty,
+        public static IEnumerable<T> DepthFirstSearch<T>(
             T start,
             Func<T, IEnumerable<T>> neighborhood,
+            Func<T, bool> end,
             Func<T, bool> skip = null)
         {
-            var visited = new HashSet<T>();
+            var stack = new Stack<T>();
+            var parent = new Dictionary<T, T>();
 
+            var last = Traverse(t => stack.Push(t), () => stack.Pop(), () => stack.Count == 0,
+                parent, start, neighborhood, end, skip).Last();
+
+            return end(last) ? Trace(parent, last) : Enumerable.Empty<T>();
+        }
+
+        public static IEnumerable<T> BreadthFirstSearch<T>(
+            T start,
+            Func<T, IEnumerable<T>> neighborhood,
+            Func<T, bool> end,
+            Func<T, bool> skip = null)
+        {
+            var queue = new Queue<T>();
+            var parent = new Dictionary<T, T>();
+
+            var last = Traverse(t => queue.Enqueue(t), () => queue.Dequeue(), () => queue.Count == 0,
+                parent, start, neighborhood, end, skip).Last();
+
+            return end(last) ? Trace(parent, last) : Enumerable.Empty<T>();
+        }
+
+        private static IEnumerable<T> Trace<T>(Dictionary<T, T> parent, T end)
+        {
+            var current = end;
+
+            while (current != null) {
+                yield return current;
+                current = parent[current]; 
+            }
+        }
+
+        private static IEnumerable<T> Traverse<T>(Action<T> push, Func<T> pop, Func<bool> empty, 
+            Dictionary<T, T> parent,
+            T start,
+            Func<T, IEnumerable<T>> neighborhood,
+            Func<T, bool> end,
+            Func<T, bool> skip = null)
+        {
             push(start);
-            visited.Add(start);
+            parent[start] = default(T);
 
             while (!empty())
             {
@@ -46,13 +86,15 @@ namespace HexModel.Generators
                     continue;
 
                 foreach (var neighbour in neighborhood(current)
-                    .Where(n => !visited.Contains(n)))
+                    .Where(n => !parent.ContainsKey(n)))
                 {
-                    visited.Add(neighbour);
+                    parent[neighbour] = current;
                     push(neighbour);
                 }
-
+                
                 yield return current;
+
+                if (end(current)) yield break;
             }
         }
     }

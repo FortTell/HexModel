@@ -52,7 +52,7 @@
     <Compile Include="Common\ISigmaMap.cs" />
     <Compile Include="Maps\ModifiedMapWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Terrain\RoadGenerator.cs" />
+    <Compile Include="Terrain\BfsRoadGenerator.cs" />
     <Compile Include="Terrain\VoronoiMap.cs" />
     <Compile Include="Terrain\VoronoiTerrainGenerator.cs" />
     <Compile Include="Utils\Graph.cs" />

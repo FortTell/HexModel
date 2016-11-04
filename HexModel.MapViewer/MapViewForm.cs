@@ -28,7 +28,7 @@ namespace HexModel.MapViewer
 
             var gen = new HommMapGenerator(
                 new DiagonalMazeGenerator(r), 
-                new VoronoiTerrainGenerator(r)
+                new BfsRoadGenerator(new VoronoiTerrainGenerator(r), r)
             );
 
             Map map = null;
