@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace HexModel.Generators
 {
-    public class DiagonalMazeGenerator : RandomGenerator<MazeCell>
+    public class DiagonalMazeGenerator : RandomGenerator, IMazeGenerator
     {
         public DiagonalMazeGenerator(Random random) : base(random) { }
 
-        public override ISigmaMap<MazeCell> Construct(MapSize size)
+        public ISigmaMap<MazeCell> Construct(MapSize size)
         {
             return ArraySigmaMap<MazeCell>
                 .From(FixConnectivity(SymmetricallyComplete(InitAboveDiagonal(size))));

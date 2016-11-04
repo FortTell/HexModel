@@ -6,10 +6,10 @@ namespace HexModel.Generators
 {
     public class HommMapGenerator
     {
-        IGenerator<MazeCell> mazeGen;
-        IGenerator<TerrainType> terrainGen;
+        IMazeGenerator mazeGen;
+        ITerrainGenerator terrainGen;
 
-        public HommMapGenerator(IGenerator<MazeCell> mazeGenerator, IGenerator<TerrainType> terrainGenerator)
+        public HommMapGenerator(IMazeGenerator mazeGenerator, ITerrainGenerator terrainGenerator)
         {
             mazeGen = mazeGenerator;
             terrainGen = terrainGenerator;
@@ -26,7 +26,7 @@ namespace HexModel.Generators
             var mapSize = new MapSize(size, size);
 
             var maze = mazeGen.Construct(mapSize);
-            var terrainMap = terrainGen.Construct(mapSize);
+            var terrainMap = terrainGen.Construct(maze);
 
             return new Map(size, size, SigmaIndex.Square(mapSize)
                 .Select(s => new Tile(

@@ -4,16 +4,17 @@ using System.Collections.Generic;
 
 namespace HexModel.Generators
 {
-    public class VoronoiTerrainGenerator : RandomGenerator<TerrainType>
+    public class VoronoiTerrainGenerator : RandomGenerator, ITerrainGenerator
     {
         public VoronoiTerrainGenerator(Random random) : base(random) { }
 
-        public override ISigmaMap<TerrainType> Construct(MapSize size)
+        public ISigmaMap<TerrainType> Construct(ISigmaMap<MazeCell> maze)
         {
-            var voronoiMap = new VoronoiMap<int>(size, 
+            var voronoiMap = new VoronoiMap<int>(maze.Size, 
                 (IEnumerable<int>)Enum.GetValues(typeof(TerrainType)), random);
 
-            return new ArraySigmaMap<TerrainType>(size, i => (TerrainType) voronoiMap[i.AboveDiagonal(size)]);
+            return new ArraySigmaMap<TerrainType>(maze.Size, 
+                i => (TerrainType) voronoiMap[i.AboveDiagonal(maze.Size)]);
         }
     }
 }

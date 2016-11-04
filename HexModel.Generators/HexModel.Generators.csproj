@@ -41,16 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\IGenerator.cs" />
+    <Compile Include="Common\RandomGenerator.cs" />
+    <Compile Include="Terrain\ITerrainGenerator.cs" />
+    <Compile Include="Maze\IMazeGenerator.cs" />
     <Compile Include="Maze\MazeCell.cs" />
     <Compile Include="Maze\DiagonalMazeGenerator.cs" />
-    <Compile Include="Common\RandomGenerator.cs" />
     <Compile Include="MapGenerator.cs" />
     <Compile Include="Maps\ArraySigmaMap.cs" />
     <Compile Include="Maps\ImmutableSigmaMap.cs" />
     <Compile Include="Common\ISigmaMap.cs" />
     <Compile Include="Maps\ModifiedMapWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Terrain\RoadGenerator.cs" />
     <Compile Include="Terrain\VoronoiMap.cs" />
     <Compile Include="Terrain\VoronoiTerrainGenerator.cs" />
     <Compile Include="Utils\Graph.cs" />

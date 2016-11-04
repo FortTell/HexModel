@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HexModel.Generators
 {
-    public abstract class RandomGenerator<TCell> : IGenerator<TCell>
+    public class RandomGenerator
     {
         protected readonly Random random;
-        
+
         public RandomGenerator(Random random)
         {
             this.random = random;
         }
-
-        public abstract ISigmaMap<TCell> Construct(MapSize size);
     }
 }
