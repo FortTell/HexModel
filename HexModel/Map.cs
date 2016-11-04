@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HexModel
 {
-    public class Map
+    public class Map : IEnumerable<Tile>
     {
         Tile[,] map;
 
@@ -64,6 +65,13 @@ namespace HexModel
             }
         }
 
+        public Map(int width, int height, IEnumerable<Tile> tiles) 
+            : this(width, height)
+        {
+            foreach (var tile in tiles)
+                map[tile.location.X, tile.location.Y] = tile;
+        }
+
         public Tile MakeTile(int x, int y, string s)
         {
             TileTerrain t = InitTerrain(s);
@@ -114,5 +122,15 @@ namespace HexModel
             }
         }
 
+        public IEnumerator<Tile> GetEnumerator()
+        {
+            foreach (var tile in map)
+                yield return tile;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }
