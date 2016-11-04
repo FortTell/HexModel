@@ -20,7 +20,7 @@ namespace HexModel.MapViewer
         {
             InitializeComponent();
             
-            Size = new Size(500, 520);
+            Size = new Size(620, 650);
 
             DoubleBuffered = true;
             
@@ -40,7 +40,7 @@ namespace HexModel.MapViewer
             for (var size = 4; size < 20; ++size)
                 mapSizeBox.Items.Add(2 * size);
             
-            mapSizeBox.SelectedIndex = 3;
+            mapSizeBox.SelectedIndex = 5;
 
             generateButton.Click += (s, e) =>
             {
