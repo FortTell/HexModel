@@ -6,11 +6,13 @@ namespace HexModel.Generators
 {
     public class HommMapGenerator
     {
-        ISigmaMazeProvider mazeProvider;
+        IGenerator<MazeCell> mazeGen;
+        IGenerator<TerrainType> terrainGen;
 
-        public HommMapGenerator(ISigmaMazeProvider mazeProvider)
+        public HommMapGenerator(IGenerator<MazeCell> mazeGenerator, IGenerator<TerrainType> terrainGenerator)
         {
-            this.mazeProvider = mazeProvider;
+            mazeGen = mazeGenerator;
+            terrainGen = terrainGenerator;
         }
 
         public Map GenerateMap(int size)
@@ -21,19 +23,23 @@ namespace HexModel.Generators
             if (size % 2 == 1)
                 throw new ArgumentException("Cannot create map of odd size");
 
-            return new Map(size, size, mazeProvider
-                .GetMazeOfSize(new MazeSize(size, size))
-                .Select(c => new Tile(
-                    c.Location.X, c.Location.Y, 
-                    new TileTerrain(TerrainType.Grass), 
-                    TileObjectFactory[c.Type]())));
+            var mapSize = new MapSize(size, size);
+
+            var maze = mazeGen.Construct(mapSize);
+            var terrainMap = terrainGen.Construct(mapSize);
+
+            return new Map(size, size, SigmaIndex.Square(mapSize)
+                .Select(s => new Tile(
+                    s.X, s.Y, 
+                    new TileTerrain(terrainMap[s]), 
+                    TileObjectFactory[maze[s]]())));
         }
 
-        private Dictionary<CellType, Func<TileObject>> TileObjectFactory
-            = new Dictionary<CellType, Func<TileObject>>
+        private Dictionary<MazeCell, Func<TileObject>> TileObjectFactory
+            = new Dictionary<MazeCell, Func<TileObject>>
             {
-                { CellType.Wall, () => new Impassable() },
-                { CellType.Empty, () => null },
+                { MazeCell.Wall, () => new Impassable() },
+                { MazeCell.Empty, () => null },
             };
     }
 }

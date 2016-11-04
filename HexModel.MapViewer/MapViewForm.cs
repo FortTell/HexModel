@@ -23,19 +23,24 @@ namespace HexModel.MapViewer
             Size = new Size(500, 520);
 
             DoubleBuffered = true;
+            
+            var r = new Random();
+
+            var gen = new HommMapGenerator(
+                new DiagonalMazeGenerator(r), 
+                new VoronoiTerrainGenerator(r)
+            );
+
+            Map map = null;
+
+            var generateButton = new Button { Text = "Generate!", Location = new Point(150, 0) };
 
             var mapSizeBox = new ComboBox();
 
             for (var size = 4; size < 20; ++size)
-                mapSizeBox.Items.Add(2*size);
-
+                mapSizeBox.Items.Add(2 * size);
+            
             mapSizeBox.SelectedIndex = 3;
-
-            var generateButton = new Button { Text = "Generate!", Location = new Point(150, 0) };
-
-            Map map = null;
-
-            var gen = new HommMapGenerator(new DiagonalMazeGenerator());
 
             generateButton.Click += (s, e) =>
             {
@@ -57,17 +62,25 @@ namespace HexModel.MapViewer
         private void DrawTile(Tile cell, Graphics g)
         {
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            var brush = new SolidBrush(GetColor(cell.tileObject));
+            var brush = new SolidBrush(GetColor(cell.tileObject, cell.tileTerrain));
             var dy = cell.location.X % 2 * diameter / 2;
             g.FillEllipse(brush, (cell.location.X+1) * diameter, (1 + cell.location.Y) * diameter + dy, diameter, diameter);
         }
 
-        private Color GetColor(TileObject obj)
+        private Color GetColor(TileObject obj, TileTerrain terrain)
         {
-            if (obj == null)
-                return Color.LightGray;
-            if (obj is Impassable)
-                return Color.DarkSlateBlue;
+            if (obj != null)
+                return Color.DarkSlateGray;
+
+            switch (terrain.TerrainType)
+            {
+                case TerrainType.Arid: return Color.LightGoldenrodYellow;
+                case TerrainType.Desert: return Color.LightYellow;
+                case TerrainType.Grass: return Color.LightGreen;
+                case TerrainType.Marsh: return Color.Pink;
+                case TerrainType.Road: return Color.LightGray;
+                case TerrainType.Snow: return Color.LightBlue;
+            }
 
             return Color.Pink;
         }

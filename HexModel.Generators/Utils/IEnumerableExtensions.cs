@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HexModel.Generators
@@ -9,26 +10,22 @@ namespace HexModel.Generators
         /// Yields only indices that are lying inside of a triangle with 
         /// sides produced by lines: X = 0; Y = 0; X / size.X + Y / size.Y = 1
         /// </summary>
-        /// <param name="size"></param>
-        /// <returns></returns>
-        public static IEnumerable<SigmaIndex> Clamp(this IEnumerable<SigmaIndex> source, MazeSize size)
+        public static IEnumerable<SigmaIndex> Clamp(this IEnumerable<SigmaIndex> source, MapSize size)
         {
             return source
-                .Where(index => index.X >= 0 && index.Y >= 0 &&
-                                index.Y < size.Y - (float)index.X / size.X * size.Y - 1);
+                .Where(index => index.IsInside(size) && !index.IsAboveDiagonal(size));
+        }
+        
+        /// <summary> Warning: traverse sequence twice! </summary>
+        public static T Argmin<T>(this IEnumerable<T> source, Func<T, double> selector)
+        {
+            return source.Where(x => selector(x) == source.Min(selector)).FirstOrDefault();
         }
 
-        /// <summary>
-        /// Yields only indices that are lying inside of a square with 
-        /// sides produced by lines: X = 0; Y = 0; X = size.X; Y = size.Y
-        /// </summary>
-        /// <param name="size"></param>
-        /// <returns></returns>
-        public static IEnumerable<SigmaIndex> Inside(this IEnumerable<SigmaIndex> source, MazeSize size)
+        /// <summary> Warning: traverse sequence twice! </summary>
+        public static T Argmax<T>(this IEnumerable<T> source, Func<T, double> selector)
         {
-            return source
-                .Where(index => index.X >= 0 && index.X < size.X &&
-                                index.Y >= 0 && index.Y < size.Y);
+            return source.Where(x => selector(x) == source.Max(selector)).FirstOrDefault();
         }
     }
 }

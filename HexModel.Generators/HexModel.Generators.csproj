@@ -41,21 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cells\CellType.cs" />
-    <Compile Include="Cells\MazeCell.cs" />
-    <Compile Include="Generators\DiagonalMazeGenerator.cs" />
-    <Compile Include="Generators\ISigmaMazeProvider.cs" />
-    <Compile Include="Generators\MazeGenerator.cs" />
+    <Compile Include="Common\IGenerator.cs" />
+    <Compile Include="Maze\MazeCell.cs" />
+    <Compile Include="Maze\DiagonalMazeGenerator.cs" />
+    <Compile Include="Common\RandomGenerator.cs" />
     <Compile Include="MapGenerator.cs" />
-    <Compile Include="Mazes\ArraySigmaMaze.cs" />
-    <Compile Include="Mazes\ImmutableSigmaMaze.cs" />
-    <Compile Include="Mazes\ISigmaMaze.cs" />
-    <Compile Include="Mazes\ModifiedMazeWrapper.cs" />
+    <Compile Include="Maps\ArraySigmaMap.cs" />
+    <Compile Include="Maps\ImmutableSigmaMap.cs" />
+    <Compile Include="Common\ISigmaMap.cs" />
+    <Compile Include="Maps\ModifiedMapWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Terrain\VoronoiMap.cs" />
+    <Compile Include="Terrain\VoronoiTerrainGenerator.cs" />
     <Compile Include="Utils\Graph.cs" />
     <Compile Include="Utils\IEnumerableExtensions.cs" />
-    <Compile Include="Utils\MazeSize.cs" />
-    <Compile Include="Utils\SigmaIndex.cs" />
+    <Compile Include="Common\MapSize.cs" />
+    <Compile Include="Common\SigmaIndex.cs" />
     <Compile Include="Utils\Vector2i.cs" />
   </ItemGroup>
   <ItemGroup>

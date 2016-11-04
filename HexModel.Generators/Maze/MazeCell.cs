@@ -1,6 +1,6 @@
 ﻿namespace HexModel.Generators
 {
-    public enum CellType
+    public enum MazeCell
     {
         Empty,
         Wall,

@@ -19,9 +19,31 @@ namespace HexModel.Generators
             }
         }
 
-        public SigmaIndex DiagonalMirror(MazeSize size)
+        public SigmaIndex DiagonalMirror(MapSize size)
         {
             return new SigmaIndex(size.Y - Y - 1, size.X - X - 1);
+        }
+
+        public bool IsInside(MapSize size)
+        {
+            return X >= 0 && X < size.X && Y >= 0 && Y < size.Y;
+        }
+
+        public bool IsAboveDiagonal(MapSize size)
+        {
+            return Y >= size.Y - (float)X / size.X * size.Y - 1;
+        }
+
+        public SigmaIndex AboveDiagonal(MapSize size)
+        {
+            return IsAboveDiagonal(size) ? this : DiagonalMirror(size);
+        }
+
+        public static IEnumerable<SigmaIndex> Square(MapSize size)
+        {
+            for (int y = 0; y < size.Y; ++y)
+                for (int x = 0; x < size.X; ++x)
+                    yield return new SigmaIndex(y, x);
         }
     }
 }
