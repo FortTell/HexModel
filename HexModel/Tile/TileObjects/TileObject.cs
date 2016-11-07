@@ -1,8 +1,16 @@
-﻿namespace HexModel
+﻿using System.Drawing;
+
+namespace HexModel
 {
     public abstract class TileObject
     {
-        string unityID;
+        public string unityID;
+        public readonly Point location;
+
+        protected TileObject(Point location)
+        {
+            this.location = location;
+        }
 
         public virtual void InteractWithPlayer(Player p) { }
     }

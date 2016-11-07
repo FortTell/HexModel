@@ -1,31 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 
 namespace HexModel
 {
-    public class Mine : TileObject, INotifyPropertyChanged
+    public class Mine : CapturableObject
     {
         public Resource Resource { get; private set; }
-        private Player owner;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName="")
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public Player Owner
-        {
-            get { return owner; }
-            set
-            {
-                if (value == null && owner != null)
-                    throw new ArgumentException("Cannot un-own a mine!");
-                owner = value;
-                
-            }
-        }
         public int Yield
         {
             get
@@ -40,10 +23,9 @@ namespace HexModel
             }
         }
 
-        public Mine(Resource res)
+        public Mine(Resource res, Point location) : base(location)
         {
             Resource = res;
-            owner = null;
         }
 
         public override void InteractWithPlayer(Player p)

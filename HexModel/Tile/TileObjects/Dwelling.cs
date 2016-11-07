@@ -1,30 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HexModel
 {
-    public class Dwelling : TileObject
+    public class Dwelling : CapturableObject
     {
         public UnitType RecruitType { get; private set; }
-        private Player owner;
-
-        public Player Owner
-        {
-            get { return owner; }
-            set
-            {
-                if (value == null && owner != null)
-                    throw new ArgumentException("Cannot un-own a mine!");
-                owner = value;
-            }
-        }
+        
 
         public int AvailableUnits { get; private set; }
 
-        public Dwelling(UnitType unitType, int availableUnits = 0)
+        public Dwelling(UnitType unitType, Point location, int availableUnits = 0) : base(location)
         {
             if (availableUnits < 0)
                 throw new ArgumentException("Cannot have negative units at dwelling!");
