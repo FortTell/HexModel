@@ -5,16 +5,16 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace HexModel
 {
     public abstract class CapturableObject : TileObject, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        protected void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));  
+            if (PropertyChanged != null)
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         Player owner;
@@ -26,7 +26,7 @@ namespace HexModel
                 if (value == null && owner != null)
                     throw new ArgumentException("Cannot un-own a mine!");
                 owner = value;
-
+                OnPropertyChanged("Owner");
             }
         }
 

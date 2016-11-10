@@ -19,7 +19,7 @@ namespace HexModel
         public override void InteractWithPlayer(Player p)
         {
             p.GainResources(resource, quantity);
-            //and must remove the pile
+            OnRemove();
         }
     }
 }

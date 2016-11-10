@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace HexModel
 {
@@ -13,5 +14,13 @@ namespace HexModel
         }
 
         public virtual void InteractWithPlayer(Player p) { }
+
+        public event Action<TileObject> Remove;
+
+        public void OnRemove()
+        {
+            if(Remove != null)
+                Remove(this);
+        }
     }
 }
