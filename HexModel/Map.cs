@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HexModel
 {
-    public class Map
+    public class Map : IEnumerable<Tile>
     {
         Tile[,] map;
 
@@ -63,6 +64,13 @@ namespace HexModel
                 for (int x = 0; x < width; x++)
                     map[y, x] = MakeTile(x, y, line[x]);
             }
+        }
+
+        public Map(int width, int height, IEnumerable<Tile> tiles) 
+            : this(width, height)
+        {
+            foreach (var tile in tiles)
+                map[tile.location.X, tile.location.Y] = tile;
         }
 
         public Tile MakeTile(int x, int y, string s)
@@ -127,6 +135,17 @@ namespace HexModel
                 guardedMine = (Mine)map[x, y].tileObject;
             }
             return new NeutralArmy(UnitFactory.CreateFromUnitType(unitType), amount, guardedMine, location);
+        }
+
+        public IEnumerator<Tile> GetEnumerator()
+        {
+            foreach (var tile in map)
+                yield return tile;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
