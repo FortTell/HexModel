@@ -14,14 +14,14 @@ namespace HexModelTesting
         [Test]
         public void PlayerInitOK()
         {
-            var p = new Player("Sieur de Metz");
+            var p = new Player("Sieur de Metz", null);
             Assert.That(p != null);
         }
 
         [Test]
         public void CheckResGainLoss()
         {
-            var p = new Player("a");
+            var p = new Player("a", null);
             Assert.AreEqual(p.CheckResourceAmount(Resource.Rubles), 0);
             p.GainResources(Resource.Rubles, 100);
             Assert.AreEqual(p.CheckResourceAmount(Resource.Rubles), 100);
@@ -32,7 +32,7 @@ namespace HexModelTesting
         [Test]
         public void PayingMoreResThanYouHaveFails()
         {
-            var p = new Player("a");
+            var p = new Player("a", null);
             p.GainResources(Resource.Rubles, 100);
             Assert.Throws<ArgumentException>(() => p.PayResources(Resource.Rubles, 120));
             Assert.AreEqual(p.CheckResourceAmount(Resource.Rubles), 100);

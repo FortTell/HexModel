@@ -59,7 +59,7 @@ namespace HexModel
 
             for (int y = 0; y < height; y++)
             {
-                var line = input[y].Split();
+                var line = input[y].Split().Where(s => s != "").ToArray();
                 for (int x = 0; x < width; x++)
                     map[y, x] = MakeTile(x, y, line[x]);
             }
