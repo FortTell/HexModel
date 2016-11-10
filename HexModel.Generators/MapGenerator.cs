@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace HexModel.Generators
@@ -32,14 +33,14 @@ namespace HexModel.Generators
                 .Select(s => new Tile(
                     s.X, s.Y, 
                     new TileTerrain(terrainMap[s]), 
-                    TileObjectFactory[maze[s]]())));
+                    TileObjectFactory[maze[s]](new Point(s.X, s.Y)))));
         }
 
-        private Dictionary<MazeCell, Func<TileObject>> TileObjectFactory
-            = new Dictionary<MazeCell, Func<TileObject>>
+        private Dictionary<MazeCell, Func<Point, TileObject>> TileObjectFactory
+            = new Dictionary<MazeCell, Func<Point, TileObject>>
             {
-                { MazeCell.Wall, () => new Impassable() },
-                { MazeCell.Empty, () => null },
+                { MazeCell.Wall, p => new Impassable(p) },
+                { MazeCell.Empty, p => null },
             };
     }
 }
