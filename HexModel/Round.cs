@@ -20,18 +20,19 @@ namespace HexModel
             daysPassed = 0;
         }
 
-        public void UpdateTick(List<Point> playerPositions)
+        public void UpdateTick(Point[] playerPositions)
         {
-            if (playerPositions.Count != players.Count)
+            if (playerPositions.Length != players.Count)
                 throw new ArgumentException("wrong number of player positions!");
             for (int i = 0; i < players.Count; i++)
             {
-                var currentTile = map[playerPositions[i].X, playerPositions[i].Y];
+                players[i].Location = playerPositions[i];
+                var currentTile = map[playerPositions[i].Y, playerPositions[i].X];
                 if (currentTile.tileObject == null)
                     continue;
                 else
                     currentTile.tileObject.InteractWithPlayer(players[i]);
-                    //InteractWithObject(players[i], currentTile.tileObject);
+                //InteractWithObject(players[i], currentTile.tileObject);
             }
         }
 
@@ -59,13 +60,13 @@ namespace HexModel
 
         public void DailyTick()
         {
-            for (int x = 0; x < map.Height; x++)
-                for (int y = 0; y < map.Width; y++)
-                    if (map[x, y].tileObject is Mine)
-                    {
-                        var m = map[x, y].tileObject as Mine;
+            foreach (var tile in map)
+                if (tile.tileObject is Mine)
+                {
+                    var m = tile.tileObject as Mine;
+                    if (m.Owner != null)
                         m.Owner.GainResources(m.Resource, m.Yield);
-                    }
+                }
 
 
 
@@ -75,13 +76,12 @@ namespace HexModel
         }
         public void WeeklyTick()
         {
-            for (int x = 0; x < map.Height; x++)
-                for (int y = 0; y < map.Width; y++)
-                    if (map[x, y].tileObject is Dwelling)
-                    {
-                        var d = map[x, y].tileObject as Dwelling;
-                        d.AddWeeklyGrowth();
-                    }
+            foreach (var tile in map)
+                if (tile.tileObject is Dwelling)
+                {
+                    var d = tile.tileObject as Dwelling;
+                    d.AddWeeklyGrowth();
+                }
         }
     }
 }

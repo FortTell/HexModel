@@ -13,7 +13,7 @@ namespace HexModel
         private Map map;
         Dictionary<Resource, int> resources;
         Dictionary<Unit, int> army;
-        public Point Location { get; private set; }
+        public Point Location { get; set; }
 
         public Player(string name, Map map)
         {
