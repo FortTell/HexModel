@@ -9,17 +9,17 @@ namespace HexModel
 {
     public class Dwelling : CapturableObject
     {
-        public UnitType RecruitType { get; private set; }
+        public Unit Recruit { get; private set; }
         
 
         public int AvailableUnits { get; private set; }
 
-        public Dwelling(UnitType unitType, Point location, int availableUnits = 0) : base(location)
+        public Dwelling(Unit unit, Point location, int availableUnits = 0) : base(location)
         {
             if (availableUnits < 0)
                 throw new ArgumentException("Cannot have negative units at dwelling!");
 
-            RecruitType = unitType;
+            Recruit = unit;
             AvailableUnits = availableUnits;
         }
 
@@ -31,7 +31,11 @@ namespace HexModel
         };
         public void AddWeeklyGrowth()
         {
-            AvailableUnits += weeklyGrowth[RecruitType];
+            AvailableUnits += weeklyGrowth[Recruit.unitType];
+        }
+        public void RemoveBoughtUnits(int amount)
+        {
+            AvailableUnits -= amount;
         }
 
         public override void InteractWithPlayer(Player p)

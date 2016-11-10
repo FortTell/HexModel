@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -67,7 +68,7 @@ namespace HexModel
         public Tile MakeTile(int x, int y, string s)
         {
             TileTerrain t = InitTerrain(s);
-            TileObject obj = InitObject(s);
+            TileObject obj = InitObject(s, new Point(x, y));
             return new Tile(x, y, t, obj);
         }
 
@@ -79,7 +80,7 @@ namespace HexModel
             throw new ArgumentException("Unknown terrain type!");
         }
 
-        private TileObject InitObject(string s)
+        private TileObject InitObject(string s, Point location)
         {
             switch (s[1])
             {
@@ -88,7 +89,7 @@ namespace HexModel
                         var resName = Enum.GetNames(typeof(Resource))
                             .SingleOrDefault(res => res[0] == s[2]);
                         var resource = (Resource)Enum.Parse(typeof(Resource), resName == null ? "Rubles" : resName);
-                        return new Mine(resource);
+                        return new Mine(resource, location);
                     }
                 case 'p':
                     {
@@ -96,16 +97,11 @@ namespace HexModel
                             .SingleOrDefault(res => res[0] == s[2]);
                         var resource = (Resource)Enum.Parse(typeof(Resource), resName == null ? "Rubles" : resName);
                         int amount = int.Parse(s.Substring(3));
-                        return new ResourcePile(resource, amount);
+                        return new ResourcePile(resource, amount, location);
                     }
                 case 'M':
                     {
-                        
-                        var monsterTypeName = Enum.GetNames(typeof(UnitType))
-                            .SingleOrDefault(res => res[0] == s[2]);
-                        var unitType = (UnitType)Enum.Parse(typeof(UnitType), monsterTypeName);
-                        int amount = int.Parse(s.Substring(3));
-                        return new NeutralArmy(UnitFactory.CreateFromUnitType(unitType), amount);
+                        return CreateNeutralArmyFromString(s, location);
                     }
                 case '-':
                     return null;
@@ -114,5 +110,23 @@ namespace HexModel
             }
         }
 
+        private NeutralArmy CreateNeutralArmyFromString(string s, Point location)
+        {
+            var monsterTypeName = Enum.GetNames(typeof(UnitType))
+                .SingleOrDefault(res => res[0] == s[2]);
+            var unitType = (UnitType)Enum.Parse(typeof(UnitType), monsterTypeName);
+            int amount = int.Parse(s.Substring(3).Split('.')[0]);
+            Mine guardedMine = null;
+            if (s.Substring(3).Split('.').Count() > 1)
+            {
+                var coords = s.Substring(3).Split('.')[1];
+                var x = int.Parse(coords.Take(2).ToString());
+                var y = int.Parse(coords.Substring(2));
+                if (!(map[x, y].tileObject is Mine))
+                    throw new ArgumentException("Coords do not");
+                guardedMine = (Mine)map[x, y].tileObject;
+            }
+            return new NeutralArmy(UnitFactory.CreateFromUnitType(unitType), amount, guardedMine, location);
+        }
     }
 }

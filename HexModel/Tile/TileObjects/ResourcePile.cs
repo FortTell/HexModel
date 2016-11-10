@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace HexModel
 {
@@ -7,7 +8,7 @@ namespace HexModel
         public readonly Resource resource;
         public readonly int quantity;
 
-        public ResourcePile(Resource resource, int quantity)
+        public ResourcePile(Resource resource, int quantity, Point location) : base(location)
         {
             if (quantity <= 0)
                 throw new ArgumentException("Cannot create zero or less resources!");

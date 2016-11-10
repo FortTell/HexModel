@@ -16,7 +16,7 @@ namespace HexModel
         public Round(string filename, string[] playerNames)
         {
             map = new Map(filename);
-            players = playerNames.Select(name => new Player(name)).ToList();
+            players = playerNames.Select(name => new Player(name, map)).ToList();
             daysPassed = 0;
         }
 

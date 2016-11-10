@@ -1,4 +1,6 @@
-﻿namespace HexModel
+﻿using System.Drawing;
+
+namespace HexModel
 {
     public class NeutralArmy : TileObject
     {
@@ -6,7 +8,7 @@
         public readonly Mine guardedMine;
         public int quantity { get; private set; }
 
-        public NeutralArmy(Unit unit, int quantity, Mine guardedMine)
+        public NeutralArmy(Unit unit, int quantity, Mine guardedMine, Point location) : base(location)
         {
             this.unit = unit;
             this.quantity = quantity;

@@ -54,6 +54,8 @@
     <Compile Include="Tile\TerrainType.cs" />
     <Compile Include="Tile\Tile.cs" />
     <Compile Include="Tile\TileObjects\Dwelling.cs" />
+    <Compile Include="Tile\TileObjects\CapturableObject.cs" />
+    <Compile Include="Tile\TileObjects\Garrison.cs" />
     <Compile Include="Tile\TileObjects\Impassable.cs" />
     <Compile Include="Tile\TileObjects\Mine.cs" />
     <Compile Include="Tile\TileObjects\NeutralArmy.cs" />

@@ -20,17 +20,20 @@ namespace HexModel
         }
         public static Unit CreateInfantry()
         {
-            return new Unit("Infantryman", 15, UnitType.Infantry);
+            return new Unit("Infantryman", 15, UnitType.Infantry, 
+                new Dictionary<Resource, int> { [Resource.Rubles] = 50, [Resource.Ore] = 1 });
         }
 
         public static Unit CreateCavalry()
         {
-            return new Unit("Horseman", 35, UnitType.Cavalry);
+            return new Unit("Horseman", 35, UnitType.Cavalry,
+                new Dictionary<Resource, int> { [Resource.Rubles] = 200, [Resource.Crystals] = 2 });
         }
 
         public static Unit CreateRanged()
         {
-            return new Unit("Archer", 12, UnitType.Ranged);
+            return new Unit("Archer", 12, UnitType.Ranged,
+                new Dictionary<Resource, int> { [Resource.Rubles] = 75, [Resource.Wood] = 1 });
         }
     }
 }
