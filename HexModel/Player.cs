@@ -49,6 +49,11 @@ namespace HexModel
             resources[res] -= amount;
         }
 
+        public void ProcessCommand()
+        {
+            //not done
+        }
+
         public void AddUnits(Unit unit, int amount)
         {
             if (!army.ContainsKey(unit))
@@ -80,7 +85,6 @@ namespace HexModel
                 return false;
             return this.Name == other.Name;
         }
-
         public override int GetHashCode()
         {
             int hash = 37;
@@ -91,7 +95,6 @@ namespace HexModel
             }
             return hash;
         }
-
         public override string ToString()
         {
             return "Player " + Name;

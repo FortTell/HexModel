@@ -41,7 +41,7 @@ namespace HexModel
             {
                 case "Mine":
                     {
-                        var m = (Mine)obj;
+                        var m = (CaptureableObject)obj;
                         m.Owner = currentPlayer;
                         break;
                     }
@@ -60,9 +60,9 @@ namespace HexModel
         public void DailyTick()
         {
             foreach (var tile in map)
-                if (tile.tileObject is Mine)
+                if (tile.tileObject is CaptureableObject)
                 {
-                    var m = tile.tileObject as Mine;
+                    var m = tile.tileObject as CaptureableObject;
                     if (m.Owner != null)
                         m.Owner.GainResources(m.Resource, m.Yield);
                 }

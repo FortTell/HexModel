@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace HexModel
 {
-    public class Mine : CapturableObject
+    public class CaptureableObject : CapturableObject
     {
         public Resource Resource { get; private set; }
 
@@ -23,7 +23,7 @@ namespace HexModel
             }
         }
 
-        public Mine(Resource res, Point location) : base(location)
+        public CaptureableObject(Resource res, Point location) : base(location)
         {
             Resource = res;
         }
